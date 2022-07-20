@@ -21,10 +21,10 @@ def save_mails(mails):
     pattern = re.compile(r'<.*?>')
     for mail in mails:
         name = str(mail.get('date')).replace(':', '.') + '_' + mail.get('subject').replace(':', '.') + '.eml'
-        sender = pattern.search(mail.get('from')).group()[1:-1]
-        if not os.path.exists(sender):
-            os.mkdir(sender)
-        zmail.save(mail, target_path='./' + sender,
+        receiver = pattern.search(mail.get('to')).group()[1:-1]
+        if not os.path.exists('./emails/'+receiver):
+            os.makedirs('./emails/'+receiver)
+        zmail.save(mail, target_path='./emails/' + receiver,
                    name=name, overwrite=True)
 
 
